@@ -1,0 +1,11 @@
+{
+  "name": "miyamog",
+  "scripts": {
+    "start": "elm-live src/Main.elm --open --pushstate --start-page=index.html --dir=public -- --output=public/main.js",
+    "build": "elm make src/Main.elm --output=public/main.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/miyamoen/miyamog.git"
+  }
+}
