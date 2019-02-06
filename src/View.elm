@@ -9,7 +9,7 @@ import Types exposing (..)
 document : Model -> Document Msg
 document model =
     { title = toTitle model.route
-    , body = [ toHtml <| text "hello" ]
+    , body = [ toHtml <| routing model ]
     }
 
 
