@@ -1,9 +1,13 @@
 module Main exposing (main)
 
-import Browser exposing (Document, UrlRequest(..), application)
+import Browser exposing (Document, UrlRequest(..))
 import Browser.Navigation as Nav exposing (Key)
 import Html exposing (..)
 import Http
+import Index
+import Services.Article as Article
+import Services.Route as Route
+import Types exposing (..)
 import Url exposing (Url)
 
 
@@ -19,30 +23,18 @@ main =
         }
 
 
-type alias Model =
-    { content : String
-    , key : Key
-    }
-
-
-type Msg
-    = NoOp
-    | OnUrlRequest UrlRequest
-    | OnUrlChange Url
-    | GotContent (Result Http.Error String)
-
-
 init : () -> Url -> Key -> ( Model, Cmd Msg )
 init _ url key =
-    ( { content = "te", key = key }, fetchHello )
-
-
-fetchHello : Cmd Msg
-fetchHello =
-    Http.get
-        { url = "/markup/hello.markup"
-        , expect = Http.expectString GotContent
-        }
+    let
+        route =
+            Route.parse url
+    in
+    ( { articles = Article.init Index.titles
+      , key = key
+      , route = route
+      }
+    , routeCmd route
+    )
 
 
 update : Msg -> Model -> ( Model, Cmd Msg )
@@ -53,7 +45,10 @@ update msg model =
 
         OnUrlRequest (Internal url) ->
             ( model
-            , Nav.pushUrl model.key (Url.toString url)
+            , Cmd.batch
+                [ routeCmd <| Route.parse url
+                , Nav.pushUrl model.key (Url.toString url)
+                ]
             )
 
         OnUrlRequest (External url) ->
@@ -61,22 +56,27 @@ update msg model =
             , Nav.load url
             )
 
-        OnUrlChange _ ->
-            ( model, Cmd.none )
+        OnUrlChange url ->
+            ( { model | route = Route.parse url }, Cmd.none )
 
-        GotContent (Ok content) ->
-            ( { model | content = content }, Cmd.none )
+        GotArticle article ->
+            ( { model | articles = Article.update article model.articles }
+            , Cmd.none
+            )
 
-        GotContent (Err error) ->
-            let
-                _ =
-                    Debug.log "err" error
-            in
-            ( model, Cmd.none )
+
+routeCmd : Route -> Cmd Msg
+routeCmd route =
+    case route of
+        ArticleRoute title ->
+            Article.fetch title GotArticle
+
+        _ ->
+            Cmd.none
 
 
 view : Model -> Document Msg
 view model =
     { title = "miyamog"
-    , body = [ text model.content ]
+    , body = [ text "hello" ]
     }
