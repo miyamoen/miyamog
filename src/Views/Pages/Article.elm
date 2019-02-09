@@ -4,11 +4,12 @@ import Element exposing (..)
 import Element.Font as Font
 import Services.Article as Article
 import Types exposing (Article, Articles, Content(..))
+import Views.Basics.Spinner
 
 
 view : String -> Articles -> Element msg
 view title articles =
-    column [ padding 32 ]
+    column [ padding 32, width fill ]
         [ el [ Font.size 32 ] <| text title
         , case Article.get title articles of
             Just article ->
@@ -32,7 +33,7 @@ contentView { title, content } =
                 ]
 
         Loading ->
-            text "Here is funny loading-spinner"
+            el [ centerX ] <| Views.Basics.Spinner.view
 
         Failure error ->
             text <| "Error : " ++ Debug.toString error
