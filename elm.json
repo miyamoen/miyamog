@@ -13,15 +13,19 @@
             "elm/url": "1.0.0",
             "elm-community/list-extra": "8.1.0",
             "mdgriffith/elm-markup": "2.0.6",
-            "mdgriffith/elm-ui": "1.1.0"
+            "mdgriffith/elm-ui": "1.1.0",
+            "miyamoen/bibliopola": "2.0.1",
+            "miyamoen/select-list": "4.0.1"
         },
         "indirect": {
             "elm/bytes": "1.0.7",
             "elm/file": "1.0.3",
             "elm/json": "1.1.2",
             "elm/parser": "1.1.0",
+            "elm/svg": "1.0.1",
             "elm/time": "1.0.0",
-            "elm/virtual-dom": "1.0.2"
+            "elm/virtual-dom": "1.0.2",
+            "miyamoen/tree-with-zipper": "1.0.0"
         }
     },
     "test-dependencies": {
