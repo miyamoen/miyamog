@@ -1,6 +1,7 @@
 module Services.Article exposing
     ( init, get, update, setLoading
     , fetch
+    , toUrl
     )
 
 {-|
@@ -15,33 +16,39 @@ module Services.Article exposing
 
 @docs fetch
 
+
+# View Helper
+
+@docs toUrl
+
 -}
 
 import Http
 import List.Extra
-import Types exposing (Article, Content(..))
+import Services.Route exposing (articleUrl)
+import Types exposing (Article, Articles, Content(..))
 
 
 
 -- CRUD
 
 
-init : List String -> List Article
+init : List String -> Articles
 init titles =
     List.map (\title -> { title = title, content = NotAsked }) titles
 
 
-get : String -> List Article -> Maybe Article
+get : String -> Articles -> Maybe Article
 get title articles =
     List.Extra.find (equals title) articles
 
 
-update : Article -> List Article -> List Article
+update : Article -> Articles -> Articles
 update article articles =
     List.Extra.setIf (equals article.title) article articles
 
 
-setLoading : String -> List Article -> List Article
+setLoading : String -> Articles -> Articles
 setLoading title articles =
     List.Extra.setIf (equals title) { title = title, content = Loading } articles
 
@@ -71,3 +78,12 @@ fromResult res =
 
         Err err ->
             Failure err
+
+
+
+-- view helper
+
+
+toUrl : Article -> String
+toUrl { title } =
+    articleUrl title

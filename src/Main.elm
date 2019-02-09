@@ -9,13 +9,14 @@ import Services.Article as Article
 import Services.Route as Route
 import Types exposing (..)
 import Url exposing (Url)
+import View
 
 
 main : Program () Model Msg
 main =
     Browser.application
         { init = init
-        , view = view
+        , view = View.document
         , update = update
         , subscriptions = always Sub.none
         , onUrlRequest = OnUrlRequest
@@ -28,12 +29,15 @@ init _ url key =
     let
         route =
             Route.parse url
+
+        ( articles, cmd ) =
+            onRouteChange route (Article.init Index.titles)
     in
-    ( { articles = Article.init Index.titles
+    ( { articles = articles
       , key = key
       , route = route
       }
-    , routeCmd route
+    , cmd
     )
 
 
@@ -44,9 +48,13 @@ update msg model =
             ( model, Cmd.none )
 
         OnUrlRequest (Internal url) ->
-            ( model
+            let
+                ( articles, cmd ) =
+                    onRouteChange (Route.parse url) model.articles
+            in
+            ( { model | articles = articles }
             , Cmd.batch
-                [ routeCmd <| Route.parse url
+                [ cmd
                 , Nav.pushUrl model.key (Url.toString url)
                 ]
             )
@@ -65,18 +73,11 @@ update msg model =
             )
 
 
-routeCmd : Route -> Cmd Msg
-routeCmd route =
+onRouteChange : Route -> Articles -> ( Articles, Cmd Msg )
+onRouteChange route articles =
     case route of
         ArticleRoute title ->
-            Article.fetch title GotArticle
+            ( Article.setLoading title articles, Article.fetch title GotArticle )
 
         _ ->
-            Cmd.none
-
-
-view : Model -> Document Msg
-view model =
-    { title = "miyamog"
-    , body = [ text "hello" ]
-    }
+            ( articles, Cmd.none )

@@ -1,4 +1,11 @@
-module Types exposing (Article, Content(..), Model, Msg(..), Route(..))
+module Types exposing
+    ( Article
+    , Articles
+    , Content(..)
+    , Model
+    , Msg(..)
+    , Route(..)
+    )
 
 import Browser exposing (UrlRequest)
 import Browser.Navigation exposing (Key)
@@ -7,10 +14,14 @@ import Url exposing (Url)
 
 
 type alias Model =
-    { articles : List Article
+    { articles : Articles
     , key : Key
     , route : Route
     }
+
+
+type alias Articles =
+    List Article
 
 
 type alias Article =

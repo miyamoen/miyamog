@@ -15,6 +15,7 @@ module Services.Route exposing
 
 import Types exposing (Route(..))
 import Url exposing (Url)
+import Url.Builder exposing (absolute)
 import Url.Parser exposing (..)
 
 
@@ -48,9 +49,9 @@ getTitle r =
 
 homeUrl : String
 homeUrl =
-    "/"
+    absolute [] []
 
 
 articleUrl : String -> String
 articleUrl title =
-    "/article/" ++ title
+    absolute [ "article", title ] []
