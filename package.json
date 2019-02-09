@@ -2,6 +2,7 @@
   "name": "miyamog",
   "scripts": {
     "start": "elm-live src/Main.elm --open --pushstate --start-page=index.html --dir=public -- --output=public/main.js",
+    "bib": "elm-live src/Bib.elm --open --pushstate --port=8008 --start-page=bib.html --dir=public -- --output=public/bib.js",
     "build": "elm make src/Main.elm --output=public/main.js"
   },
   "repository": {

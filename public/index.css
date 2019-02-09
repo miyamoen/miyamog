@@ -1,0 +1,113 @@
+.spinner {
+  --top-left: rgb(255, 168, 107);
+  --top-right: rgb(255, 215, 143);
+  --bottom-left: rgb(255, 189, 143);
+  --bottom-right: rgb(255, 202, 107);
+  --size: 7px;
+  --offset: 14px;
+  border-radius: 100%;
+  box-shadow: var(--top-left) calc(-1 * var(--offset)) calc(-1 * var(--offset))
+      0 var(--size),
+    var(--top-right) var(--offset) calc(-1 * var(--offset)) 0 var(--size),
+    var(--bottom-right) var(--offset) var(--offset) 0 var(--size),
+    var(--bottom-left) calc(-1 * var(--offset)) var(--offset) 0 var(--size);
+  animation: spinner 5s infinite ease-in-out;
+}
+
+@keyframes spinner {
+  0% {
+    box-shadow: var(--top-left) calc(-1 * var(--offset))
+        calc(-1 * var(--offset)) 0 var(--size),
+      var(--top-right) var(--offset) calc(-1 * var(--offset)) 0 var(--size),
+      var(--bottom-right) var(--offset) var(--offset) 0 var(--size),
+      var(--bottom-left) calc(-1 * var(--offset)) var(--offset) 0 var(--size);
+  }
+  8.33% {
+    box-shadow: var(--top-left) var(--offset) calc(-1 * var(--offset)) 0
+        var(--size),
+      var(--top-right) var(--offset) calc(-1 * var(--offset)) 0 var(--size),
+      var(--bottom-right) var(--offset) var(--offset) 0 var(--size),
+      var(--bottom-left) calc(-1 * var(--offset)) var(--offset) 0 var(--size);
+  }
+  16.67% {
+    box-shadow: var(--top-left) var(--offset) var(--offset) 0 var(--size),
+      var(--top-right) var(--offset) var(--offset) 0 var(--size),
+      var(--bottom-right) var(--offset) var(--offset) 0 var(--size),
+      var(--bottom-left) calc(-1 * var(--offset)) var(--offset) 0 var(--size);
+  }
+  25% {
+    box-shadow: var(--top-left) calc(-1 * var(--offset)) var(--offset) 0
+        var(--size),
+      var(--top-right) calc(-1 * var(--offset)) var(--offset) 0 var(--size),
+      var(--bottom-right) calc(-1 * var(--offset)) var(--offset) 0 var(--size),
+      var(--bottom-left) calc(-1 * var(--offset)) var(--offset) 0 var(--size);
+  }
+  33.33% {
+    box-shadow: var(--top-left) calc(-1 * var(--offset))
+        calc(-1 * var(--offset)) 0 var(--size),
+      var(--top-right) calc(-1 * var(--offset)) var(--offset) 0 var(--size),
+      var(--bottom-right) calc(-1 * var(--offset)) calc(-1 * var(--offset)) 0
+        var(--size),
+      var(--bottom-left) calc(-1 * var(--offset)) calc(-1 * var(--offset)) 0
+        var(--size);
+  }
+  41.67% {
+    box-shadow: var(--top-left) var(--offset) calc(-1 * var(--offset)) 0
+        var(--size),
+      var(--top-right) calc(-1 * var(--offset)) var(--offset) 0 var(--size),
+      var(--bottom-right) calc(-1 * var(--offset)) calc(-1 * var(--offset)) 0
+        var(--size),
+      var(--bottom-left) var(--offset) calc(-1 * var(--offset)) 0 var(--size);
+  }
+  50% {
+    box-shadow: var(--top-left) var(--offset) var(--offset) 0 var(--size),
+      var(--top-right) calc(-1 * var(--offset)) var(--offset) 0 var(--size),
+      var(--bottom-right) calc(-1 * var(--offset)) calc(-1 * var(--offset)) 0
+        var(--size),
+      var(--bottom-left) var(--offset) calc(-1 * var(--offset)) 0 var(--size);
+  }
+  58.33% {
+    box-shadow: var(--top-left) calc(-1 * var(--offset)) var(--offset) 0
+        var(--size),
+      var(--top-right) calc(-1 * var(--offset)) var(--offset) 0 var(--size),
+      var(--bottom-right) calc(-1 * var(--offset)) calc(-1 * var(--offset)) 0
+        var(--size),
+      var(--bottom-left) var(--offset) calc(-1 * var(--offset)) 0 var(--size);
+  }
+  66.67% {
+    box-shadow: var(--top-left) calc(-1 * var(--offset))
+        calc(-1 * var(--offset)) 0 var(--size),
+      var(--top-right) calc(-1 * var(--offset)) calc(-1 * var(--offset)) 0
+        var(--size),
+      var(--bottom-right) calc(-1 * var(--offset)) calc(-1 * var(--offset)) 0
+        var(--size),
+      var(--bottom-left) var(--offset) calc(-1 * var(--offset)) 0 var(--size);
+  }
+  75% {
+    box-shadow: var(--top-left) var(--offset) calc(-1 * var(--offset)) 0
+        var(--size),
+      var(--top-right) var(--offset) calc(-1 * var(--offset)) 0 var(--size),
+      var(--bottom-right) var(--offset) calc(-1 * var(--offset)) 0 var(--size),
+      var(--bottom-left) var(--offset) calc(-1 * var(--offset)) 0 var(--size);
+  }
+  83.33% {
+    box-shadow: var(--top-left) var(--offset) var(--offset) 0 var(--size),
+      var(--top-right) var(--offset) calc(-1 * var(--offset)) 0 var(--size),
+      var(--bottom-right) var(--offset) var(--offset) 0 var(--size),
+      var(--bottom-left) var(--offset) var(--offset) 0 var(--size);
+  }
+  91.67% {
+    box-shadow: var(--top-left) calc(-1 * var(--offset)) var(--offset) 0
+        var(--size),
+      var(--top-right) var(--offset) calc(-1 * var(--offset)) 0 var(--size),
+      var(--bottom-right) var(--offset) var(--offset) 0 var(--size),
+      var(--bottom-left) calc(-1 * var(--offset)) var(--offset) 0 var(--size);
+  }
+  100% {
+    box-shadow: var(--top-left) calc(-1 * var(--offset))
+        calc(-1 * var(--offset)) 0 var(--size),
+      var(--top-right) var(--offset) calc(-1 * var(--offset)) 0 var(--size),
+      var(--bottom-right) var(--offset) var(--offset) 0 var(--size),
+      var(--bottom-left) calc(-1 * var(--offset)) var(--offset) 0 var(--size);
+  }
+}
