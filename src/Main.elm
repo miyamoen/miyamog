@@ -31,7 +31,7 @@ init _ url key =
             Route.parse url
 
         ( articles, cmd ) =
-            onRouteChange route (Article.init Index.titles)
+            onRouteChange route (Article.init Index.ids)
     in
     ( { articles = articles
       , key = key

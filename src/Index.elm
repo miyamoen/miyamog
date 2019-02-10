@@ -1,6 +1,6 @@
-module Index exposing (titles)
+module Index exposing (ids)
 
 
-titles : List String
-titles =
+ids : List String
+ids =
     [ "hello" ]

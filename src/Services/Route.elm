@@ -1,7 +1,7 @@
 module Services.Route exposing
     ( parse
     , homeUrl, articleUrl
-    , getTitle
+    , getId
     )
 
 {-|
@@ -9,7 +9,7 @@ module Services.Route exposing
 @docs parse
 @docs homeUrl, articleUrl
 
-@docs getTitle
+@docs getId
 
 -}
 
@@ -33,11 +33,11 @@ route =
         ]
 
 
-getTitle : Route -> Maybe String
-getTitle r =
+getId : Route -> Maybe String
+getId r =
     case r of
-        ArticleRoute title ->
-            Just title
+        ArticleRoute id ->
+            Just id
 
         _ ->
             Nothing
@@ -53,5 +53,5 @@ homeUrl =
 
 
 articleUrl : String -> String
-articleUrl title =
-    absolute [ "article", title ] []
+articleUrl id =
+    absolute [ "article", id ] []

@@ -25,8 +25,8 @@ routing model =
         NotFoundRoute url ->
             text <| "notfound : " ++ Url.toString url
 
-        ArticleRoute title ->
-            Views.Pages.Article.view title model.articles
+        ArticleRoute id ->
+            Views.Pages.Article.view id model.articles
 
 
 
@@ -57,5 +57,5 @@ toTitle route =
         NotFoundRoute _ ->
             "notfound - miyamog"
 
-        ArticleRoute title ->
-            title ++ " - miyamog"
+        ArticleRoute id ->
+            id ++ " - miyamog"

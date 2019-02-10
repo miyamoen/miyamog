@@ -25,7 +25,7 @@ type alias Articles =
 
 
 type alias Article =
-    { title : String, content : Content }
+    { id : String, content : Content }
 
 
 type Content

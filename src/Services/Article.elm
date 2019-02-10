@@ -34,28 +34,28 @@ import Types exposing (Article, Articles, Content(..))
 
 
 init : List String -> Articles
-init titles =
-    List.map (\title -> { title = title, content = NotAsked }) titles
+init ids =
+    List.map (\id -> { id = id, content = NotAsked }) ids
 
 
 get : String -> Articles -> Maybe Article
-get title articles =
-    List.Extra.find (equals title) articles
+get id articles =
+    List.Extra.find (equals id) articles
 
 
 update : Article -> Articles -> Articles
 update article articles =
-    List.Extra.setIf (equals article.title) article articles
+    List.Extra.setIf (equals article.id) article articles
 
 
 setLoading : String -> Articles -> Articles
-setLoading title articles =
-    List.Extra.setIf (equals title) { title = title, content = Loading } articles
+setLoading id articles =
+    List.Extra.setIf (equals id) { id = id, content = Loading } articles
 
 
 equals : String -> Article -> Bool
-equals title article =
-    article.title == title
+equals id article =
+    article.id == id
 
 
 
@@ -63,10 +63,10 @@ equals title article =
 
 
 fetch : String -> (Article -> msg) -> Cmd msg
-fetch title toMsg =
+fetch id toMsg =
     Http.get
-        { url = "/markup/" ++ title ++ ".markup"
-        , expect = Http.expectString (fromResult >> Article title >> toMsg)
+        { url = "/markup/" ++ id ++ ".markup"
+        , expect = Http.expectString (fromResult >> Article id >> toMsg)
         }
 
 
@@ -85,5 +85,5 @@ fromResult res =
 
 
 toUrl : Article -> String
-toUrl { title } =
-    articleUrl title
+toUrl { id } =
+    articleUrl id
