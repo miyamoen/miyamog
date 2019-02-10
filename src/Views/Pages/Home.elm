@@ -7,7 +7,7 @@ import Types exposing (Article, Articles)
 
 view : Articles -> Element msg
 view articles =
-    column [ spacing 8, padding 32 ] <|
+    column [ spacing 8 ] <|
         List.map articleLink articles
 
 

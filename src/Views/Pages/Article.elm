@@ -9,7 +9,7 @@ import Views.Basics.Spinner
 
 view : String -> Articles -> Element msg
 view id articles =
-    column [ padding 32, width fill ]
+    column [ width fill ]
         [ el [ Font.size 32 ] <| text id
         , case Article.get id articles of
             Just article ->
