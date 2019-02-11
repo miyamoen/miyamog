@@ -5,6 +5,7 @@ import Element exposing (..)
 import Element.Background as Background
 import Element.Font as Font
 import Html exposing (Html)
+import Services.Article as Article
 import Types exposing (..)
 import Url
 import Views.Basics.Header as Header
@@ -16,7 +17,7 @@ import Views.Pages.Home
 
 document : Model -> Document Msg
 document model =
-    { title = toTitle model.route
+    { title = toTitle model
     , body = [ toHtml <| routing model ]
     }
 
@@ -65,8 +66,8 @@ rootAttrs =
     ]
 
 
-toTitle : Route -> String
-toTitle route =
+toTitle : Model -> String
+toTitle { route, articles } =
     case route of
         HomeRoute ->
             "miyamog"
@@ -75,4 +76,8 @@ toTitle route =
             "notfound - miyamog"
 
         ArticleRoute id ->
-            id ++ " - miyamog"
+            (Article.get id articles
+                |> Maybe.map (.meta >> .title)
+                |> Maybe.withDefault id
+            )
+                ++ " - miyamog"
