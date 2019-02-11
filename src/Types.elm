@@ -10,6 +10,7 @@ module Types exposing
 import Browser exposing (UrlRequest)
 import Browser.Navigation exposing (Key)
 import Http
+import Index exposing (Meta)
 import Url exposing (Url)
 
 
@@ -25,7 +26,7 @@ type alias Articles =
 
 
 type alias Article =
-    { id : String, content : Content }
+    { meta : Meta, content : Content }
 
 
 type Content
@@ -39,7 +40,7 @@ type Msg
     = NoOp
     | OnUrlRequest UrlRequest
     | OnUrlChange Url
-    | GotArticle Article
+    | GotContent String Content
 
 
 type Route

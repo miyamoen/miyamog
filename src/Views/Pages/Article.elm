@@ -10,8 +10,7 @@ import Views.Basics.Spinner
 view : String -> Articles -> Element msg
 view id articles =
     column [ width fill ]
-        [ el [ Font.size 32 ] <| text id
-        , case Article.get id articles of
+        [ case Article.get id articles of
             Just article ->
                 contentView article
 
@@ -21,14 +20,14 @@ view id articles =
 
 
 contentView : Article -> Element msg
-contentView { id, content } =
+contentView { meta, content } =
     case content of
         Success body ->
             paragraph [] [ text body ]
 
         NotAsked ->
             paragraph []
-                [ text <| "NotAsked : " ++ id
+                [ text <| "NotAsked : " ++ meta.title
                 , text "Here is Bug."
                 ]
 

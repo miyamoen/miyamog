@@ -1,6 +1,10 @@
-module Index exposing (ids)
+module Index exposing (Meta, metas)
 
 
-ids : List String
-ids =
-    [ "hello" ]
+type alias Meta =
+    { id : String, title : String }
+
+
+metas : List Meta
+metas =
+    [ { id = "hello", title = "Hello, miyamog!" } ]

@@ -31,7 +31,7 @@ init _ url key =
             Route.parse url
 
         ( articles, cmd ) =
-            onRouteChange route (Article.init Index.ids)
+            onRouteChange route (Article.init Index.metas)
     in
     ( { articles = articles
       , key = key
@@ -67,8 +67,8 @@ update msg model =
         OnUrlChange url ->
             ( { model | route = Route.parse url }, Cmd.none )
 
-        GotArticle article ->
-            ( { model | articles = Article.update article model.articles }
+        GotContent id content ->
+            ( { model | articles = Article.setContent id content model.articles }
             , Cmd.none
             )
 
@@ -76,8 +76,8 @@ update msg model =
 onRouteChange : Route -> Articles -> ( Articles, Cmd Msg )
 onRouteChange route articles =
     case route of
-        ArticleRoute title ->
-            ( Article.setLoading title articles, Article.fetch title GotArticle )
+        ArticleRoute id ->
+            ( Article.setLoading id articles, Article.fetch id (GotContent id) )
 
         _ ->
             ( articles, Cmd.none )

@@ -15,5 +15,5 @@ articleLink : Article -> Element msg
 articleLink article =
     link []
         { url = Article.toUrl article
-        , label = text article.id
+        , label = text article.meta.title
         }

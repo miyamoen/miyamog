@@ -1,5 +1,5 @@
 module Services.Article exposing
-    ( init, get, update, setLoading
+    ( init, get, update, setLoading, setContent
     , fetch
     , toUrl
     )
@@ -9,7 +9,7 @@ module Services.Article exposing
 
 # CRUD
 
-@docs init, get, update, setLoading
+@docs init, get, update, setLoading, setContent
 
 
 # API
@@ -24,6 +24,7 @@ module Services.Article exposing
 -}
 
 import Http
+import Index exposing (Meta)
 import List.Extra
 import Services.Route exposing (articleUrl)
 import Types exposing (Article, Articles, Content(..))
@@ -33,9 +34,9 @@ import Types exposing (Article, Articles, Content(..))
 -- CRUD
 
 
-init : List String -> Articles
-init ids =
-    List.map (\id -> { id = id, content = NotAsked }) ids
+init : List Meta -> Articles
+init metas =
+    List.map (\meta -> { meta = meta, content = NotAsked }) metas
 
 
 get : String -> Articles -> Maybe Article
@@ -45,28 +46,35 @@ get id articles =
 
 update : Article -> Articles -> Articles
 update article articles =
-    List.Extra.setIf (equals article.id) article articles
+    List.Extra.setIf (equals article.meta.id) article articles
+
+
+setContent : String -> Content -> Articles -> Articles
+setContent id content articles =
+    List.Extra.updateIf (equals id)
+        (\article -> { article | content = content })
+        articles
 
 
 setLoading : String -> Articles -> Articles
 setLoading id articles =
-    List.Extra.setIf (equals id) { id = id, content = Loading } articles
+    setContent id Loading articles
 
 
 equals : String -> Article -> Bool
 equals id article =
-    article.id == id
+    article.meta.id == id
 
 
 
 -- API
 
 
-fetch : String -> (Article -> msg) -> Cmd msg
+fetch : String -> (Content -> msg) -> Cmd msg
 fetch id toMsg =
     Http.get
         { url = "/markup/" ++ id ++ ".markup"
-        , expect = Http.expectString (fromResult >> Article id >> toMsg)
+        , expect = Http.expectString (fromResult >> toMsg)
         }
 
 
@@ -85,5 +93,5 @@ fromResult res =
 
 
 toUrl : Article -> String
-toUrl { id } =
-    articleUrl id
+toUrl { meta } =
+    articleUrl meta.id
