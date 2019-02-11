@@ -77,7 +77,11 @@ onRouteChange : Route -> Articles -> ( Articles, Cmd Msg )
 onRouteChange route articles =
     case route of
         ArticleRoute id ->
-            ( Article.setLoading id articles, Article.fetch id (GotContent id) )
+            if Article.haveContent id articles then
+                ( articles, Cmd.none )
+
+            else
+                ( Article.setLoading id articles, Article.fetch id (GotContent id) )
 
         _ ->
             ( articles, Cmd.none )

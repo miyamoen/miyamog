@@ -1,5 +1,5 @@
 module Services.Article exposing
-    ( init, get, update, setLoading, setContent
+    ( init, get, update, setLoading, setContent, hasContent, haveContent
     , fetch
     , toUrl
     )
@@ -9,7 +9,7 @@ module Services.Article exposing
 
 # CRUD
 
-@docs init, get, update, setLoading, setContent
+@docs init, get, update, setLoading, setContent, hasContent, haveContent
 
 
 # API
@@ -59,6 +59,23 @@ setContent id content articles =
 setLoading : String -> Articles -> Articles
 setLoading id articles =
     setContent id Loading articles
+
+
+haveContent : String -> Articles -> Bool
+haveContent id articles =
+    List.Extra.find (equals id) articles
+        |> Maybe.map hasContent
+        |> Maybe.withDefault False
+
+
+hasContent : Article -> Bool
+hasContent { content } =
+    case content of
+        Success _ ->
+            True
+
+        _ ->
+            False
 
 
 equals : String -> Article -> Bool
