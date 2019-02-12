@@ -1,0 +1,84 @@
+| Title
+    miyamogのモジュール構成
+
+モジュール構成なんてすぐ変わってしまうのでメモっていこうと思います
+
+目下の目標はこの記事をいい感じに表示することなので大変読みにくいと思います
+
+2019\/2\/12
+
+- Types
+　- ...
+- Services
+　- ...
+- Views
+　- Basics
+　　- ...
+　- Customs
+　　- ...
+　- Pages
+　　- Egg.elm
+　　- Egg
+　　　- ...
+　　- ...
+　- Utils.elm
+　- Colors.elm
+　- Constants.elm
+- View.elm
+- Types.elm
+- Bib.elm
+- Main.elm
+
+最近はこんな感じ
+
+
+Types.elm, Types\/...
+
+型定義を全部入れる。アプリが小さかったら全部Types.elm
+ちょっと無理ってなったら分割する
+
+Elmではモジュールの循環参照が許されてないので、型だけ分けとかないと無理になる
+
+Services\/...
+
+最近生えた
+なんかロジックとかが入ってる。ルーティングのためのパーサーとかが入ったRoute.elmがあるのもここ
+
+なんかサービスって書いてあったほうがUtilsよりそれっぽいんじゃないと思ってこうなった
+
+
+View.elm
+
+ElementからHtmlへの変換とルーティングをやってる
+
+Views\/Pages\/..., Customs\/..., Basics\/...
+
+これがわたしのアトミックデザイン！
+
+PageはModelを受けて、Customはアプリケーション固有の型を受けて、BasicはStringやList Intなどの汎用的な型を受けるという分類でやってる。
+
+View\/Utils.elm
+
+view全体で使いたいものがはいってる
+classとか
+
+Views\/Colors.elm
+
+カラーパレット
+
+Views\/Constants.elm
+
+fontSize, padding, spacingなどのレイアウト上のサイズなんかが入ってる
+
+
+Bib.elm
+
+Bibliopola用のエントリ
+
+
+Main.elm
+
+メインエントリ。updateとかもここにある
+
+
+現在こんな感じ

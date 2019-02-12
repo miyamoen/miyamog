@@ -7,4 +7,6 @@ type alias Meta =
 
 metas : List Meta
 metas =
-    [ { id = "hello", title = "Hello, miyamog!" } ]
+    [ { id = "hello", title = "Hello, miyamog!" }
+    , { id = "miyamog_structure", title = "miyamogのモジュール構成" }
+    ]

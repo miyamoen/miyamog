@@ -27,15 +27,15 @@ contentView { meta, content } =
         Success raw ->
             case Markup.parse raw of
                 Ok { title, lines } ->
-                    column []
+                    column [ spacing <| Constants.spacing 2 ]
                         [ el [ Font.size <| Constants.fontSize 2 ] <| text title
                         , textColumn [] <|
                             List.map (\line -> paragraph [] [ text line ]) lines
                         ]
 
                 Err err ->
-                    paragraph [] <|
-                        List.map (Debug.toString >> text) err
+                    textColumn [] <|
+                        List.map (Debug.toString >> text >> List.singleton >> paragraph []) err
 
         NotAsked ->
             paragraph []
